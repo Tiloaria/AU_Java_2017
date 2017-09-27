@@ -126,6 +126,8 @@ public class HashTable {
      */
     public String get(String key) {
         int place = hash(key);
+        if(table[place] == null)
+            return null;
         Element findElement = table[place].contains(key);
         if (findElement == null) {
             return null;
@@ -178,20 +180,9 @@ public class HashTable {
      * clear all HashTable
      */
     public void clear() {
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < places; i++){
             table[i] = null;
         }
         size = 0;
-    }
-
-    public static void main(String[] args) {
-        HashTable h = new HashTable();
-        System.out.println(h.size());
-        System.out.println(h.put("Savon", "Yuliya"));
-        System.out.println(h.contains("Savon"));
-        System.out.println(h.contains("False"));
-        System.out.println(h.size());
-        System.out.println(h.remove("Savon"));
-        System.out.println(h.size());
     }
 }
