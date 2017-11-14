@@ -35,7 +35,7 @@ public class HashTable {
         return hash;
     }
 
-    private Element [ ] table = new Element[places]; //table with links to first elements
+    private Element[] table = new Element[places]; //table with links to first elements
 
     /**
      * return true if key exist in HashTable otherwise return false
