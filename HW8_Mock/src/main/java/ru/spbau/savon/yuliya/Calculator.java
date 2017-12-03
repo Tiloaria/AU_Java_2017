@@ -14,13 +14,13 @@ public class Calculator {
      * @param signStack help stack for saving order of operations
      * @return Array with Strings - numbers and signs (in Polish Notification order)
      */
-    public static ArrayList<String> PolishNote (@NotNull String expression, @NotNull MyStack<Character> signStack) {
+    public static ArrayList<String> polishNote (@NotNull String expression, @NotNull MyStack<Character> signStack) {
         StringBuilder curInt = new StringBuilder();
         boolean needToAddInt = true;
         ArrayList<String> ans = new ArrayList<>();
         for(int i = 0; i < expression.length(); i++) {
             Character curSymbol = expression.charAt(i);
-            if (curSymbol >= '0' & curSymbol <= '9') {
+            if (curSymbol >= '0' && curSymbol <= '9') {
                 needToAddInt = true;
                 curInt.append(curSymbol);
             }
@@ -44,6 +44,11 @@ public class Calculator {
                     }
                 }
             }
+        }
+        if (needToAddInt) {
+            ans.add(curInt.toString());
+            curInt = new StringBuilder();
+            needToAddInt = false;
         }
         while (signStack.size() > 0) { //add remaining operations in array
             ans.add(signStack.top().toString());
@@ -139,6 +144,6 @@ public class Calculator {
      * @return result of expression if it's correct
      */
     public static int calculate (@NotNull String expression, @NotNull MyStack<Character> signStack, @NotNull MyStack<Integer> intStack) {
-        return calculatePolishNote(PolishNote(expression, signStack), intStack);
+        return calculatePolishNote(polishNote(expression, signStack), intStack);
     }
 }
