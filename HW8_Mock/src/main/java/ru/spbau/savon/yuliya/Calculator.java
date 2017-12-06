@@ -31,15 +31,21 @@ public class Calculator {
                         curInt = new StringBuilder();
                         needToAddInt = false;
                     }
-                    while ((signStack.size() > 0) && (count(curSymbol, signStack.top()))) {
-                        if (signStack.top() == '(') {
+                    Character top;
+                    while (signStack.notEmpty() && (count(top = signStack.top(), curSymbol))) {
+                        if (top == '(') {
                             signStack.pop();
                             break;
                         }
-                        ans.add(signStack.top().toString());
+                        ans.add(top.toString());
                         signStack.pop();
                     }
                     if (curSymbol != ')') {
+                        signStack.add(curSymbol);
+                    }
+                }
+                else {
+                    if (curSymbol == '(') {
                         signStack.add(curSymbol);
                     }
                 }
@@ -47,10 +53,8 @@ public class Calculator {
         }
         if (needToAddInt) {
             ans.add(curInt.toString());
-            curInt = new StringBuilder();
-            needToAddInt = false;
         }
-        while (signStack.size() > 0) { //add remaining operations in array
+        for (int i = 0; i < signStack.size(); i++) {
             ans.add(signStack.top().toString());
             signStack.pop();
         }
@@ -73,17 +77,13 @@ public class Calculator {
      * @return number of operator priority
      */
     private static int priority (char sign) {
+        if (sign == ')' || sign == '(')
+            return 0;
         if (sign == '-' || sign == '+') {
             return 1;
         }
         if (sign == '*' || sign == '/') {
             return 2;
-        }
-        if (sign == ')') {
-            return 3;
-        }
-        if (sign == '(') {
-            return 0;
         }
         return 0;
     }
@@ -94,16 +94,16 @@ public class Calculator {
      * @param intString Stack for intermediate values
      * @return result of expression
      */
-    public static int calculatePolishNote (ArrayList<String> str, @NotNull MyStack<Integer> intString) {
+    public static double calculatePolishNote (ArrayList<String> str, @NotNull MyStack<Double> intString) {
         for (int i = 0; i < str.size(); i++) {
             String cur = str.get(i);
-            if (cur.charAt(i) <= '9' && cur.charAt(i) >= '0') {
-                intString.add(Integer.parseInt(cur));
+            if (cur.charAt(0) <= '9' && cur.charAt(0) >= '0') {
+                intString.add((double)Integer.parseInt(cur));
             }
             else {
-                int x2 = intString.top();
+                double x2 = intString.top();
                 intString.pop();
-                int x1 = intString.top();
+                double x1 = intString.top();
                 intString.pop();
                 intString.add(count(x1, x2, cur));
             }
@@ -118,7 +118,7 @@ public class Calculator {
      * @param sign operator
      * @return result of applied operator
      */
-    private static int count(int x1, int x2, String sign) {
+    private static double count(double x1, double x2, String sign) {
         if (sign == "-") {
             return x1 - x2;
         }
@@ -143,7 +143,7 @@ public class Calculator {
      * @param intStack Stack for intermediate values
      * @return result of expression if it's correct
      */
-    public static int calculate (@NotNull String expression, @NotNull MyStack<Character> signStack, @NotNull MyStack<Integer> intStack) {
+    public static double calculate (@NotNull String expression, @NotNull MyStack<Character> signStack, @NotNull MyStack<Double> intStack) {
         return calculatePolishNote(polishNote(expression, signStack), intStack);
     }
 }
