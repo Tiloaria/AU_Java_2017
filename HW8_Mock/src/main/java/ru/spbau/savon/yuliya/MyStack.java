@@ -29,8 +29,17 @@ public class MyStack<E> {
      * remove last element from stack
      */
     public void pop() {
-        if(size > 0)
-            size--;
+        try {
+            if (size > 0) {
+                size--;
+            }
+            else {
+                throw new NullPointerException("Empty stack");
+            }
+        }
+        catch (NullPointerException e) {
+            System.out.println("Can't pop an element because " + e);
+        }
     }
 
     /**

@@ -25,7 +25,7 @@ public class Calculator {
                 curInt.append(curSymbol);
             }
             else {
-                if (curSymbol == '+'  || curSymbol == '-' || curSymbol == '*' || curSymbol == '/' || curSymbol == ')') {
+                if (curSymbol.equals('+')  || curSymbol.equals('-') || curSymbol.equals('*') || curSymbol.equals('/') || curSymbol.equals(')')) {
                     if (needToAddInt) {
                         ans.add(curInt.toString());
                         curInt = new StringBuilder();
@@ -33,19 +33,19 @@ public class Calculator {
                     }
                     Character top;
                     while (signStack.notEmpty() && (count(top = signStack.top(), curSymbol))) {
-                        if (top == '(') {
+                        if (top.equals('(')) {
                             signStack.pop();
                             break;
                         }
                         ans.add(top.toString());
                         signStack.pop();
                     }
-                    if (curSymbol != ')') {
+                    if (!curSymbol.equals(')')) {
                         signStack.add(curSymbol);
                     }
                 }
                 else {
-                    if (curSymbol == '(') {
+                    if (curSymbol.equals('(')) {
                         signStack.add(curSymbol);
                     }
                 }
@@ -76,13 +76,14 @@ public class Calculator {
      * @param sign operator in type Char
      * @return number of operator priority
      */
-    private static int priority (char sign) {
-        if (sign == ')' || sign == '(')
+    private static int priority (Character sign) {
+        if (sign.equals(')') || sign.equals('(')) {
             return 0;
-        if (sign == '-' || sign == '+') {
+        }
+        if (sign.equals('-') || sign.equals('+')) {
             return 1;
         }
-        if (sign == '*' || sign == '/') {
+        if (sign.equals('*') || sign.equals('/')) {
             return 2;
         }
         return 0;
@@ -119,18 +120,18 @@ public class Calculator {
      * @return result of applied operator
      */
     private static double count(double x1, double x2, String sign) {
-        if (sign == "-") {
+        if (sign.equals("-")) {
             return x1 - x2;
         }
-        if (sign == "+") {
+        if (sign.equals("+")) {
             return x1 + x2;
         }
 
-        if (sign == "*") {
+        if (sign.equals("*")) {
             return x1 * x2;
         }
 
-        if (sign == "/") {
+        if (sign.equals("/")) {
             return x1 / x2;
         }
         return 0;
