@@ -12,7 +12,7 @@ public class MindTreeSet<E> implements  MyTreeSet<E>{
     Node finish = null;
     Node root = null;
     int size = 0;
-    boolean ret = false;
+    boolean setIsRetern = false;
     Comparator<? super E> comparator = null; // comparator of type E if it's exist
 
     /**
@@ -48,7 +48,7 @@ public class MindTreeSet<E> implements  MyTreeSet<E>{
         boolean direction;
 
         TreeSetIterator(boolean r2) {
-            direction = ret == r2;
+            direction = setIsRetern == r2;
             if (direction) {
                 cur = start;
             }
@@ -191,7 +191,7 @@ public class MindTreeSet<E> implements  MyTreeSet<E>{
         finish = null;
         root = null;
         size = 0;
-        ret = false;
+        setIsRetern = false;
     }
 
     /**
