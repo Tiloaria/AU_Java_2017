@@ -1,7 +1,5 @@
 package ru.spbau.savon.test2.Injector;
 
-import ru.spbau.savon.test2.Injector.AmbiguousImplementationException;
-
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
