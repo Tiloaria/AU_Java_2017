@@ -144,6 +144,6 @@ public class SmartListTest {
     }
 
     private static Class<?> getListClass() throws ClassNotFoundException {
-        return Class.forName("ru.spbau.mit.SmartList");
+        return Class.forName("ru.spbau.savon.yuliya.SmartList");
     }
 }
