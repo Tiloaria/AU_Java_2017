@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Have size and elements, save 1 element in data, 2...5 elements to list, 5 and more in ArrayList
+ *
  * @param <E> type of elements
  */
 public class SmartList<E> extends AbstractList<E> implements List<E> {
@@ -20,6 +21,7 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
 
     /**
      * Create from Collection
+     *
      * @param collection
      */
     public SmartList(Collection<E> collection) {
@@ -33,8 +35,7 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
         if (collection.size() >= 2 && collection.size() <= 5) {
             Object[] newArray = new Object[5];
             for (int i = 0; i < 5; i++) {
-                newArray[i] = ((Object[]) data)[5];
-            }
+                newArray[i] = ((ArrayList<E>) data).toArray()[i]; }
 
             data = newArray;
             return;
@@ -48,7 +49,7 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -68,7 +69,7 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
             Object[] newArray;
             if (size == 1) {
                 newArray = new Object[2];
-                newArray[0] = (E) data;
+                newArray[0] = data;
                 newArray[1] = e;
             } else {
                 newArray = new Object[size + 1];
@@ -87,10 +88,11 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
                 newList.add(((E[]) data)[i]);
             }
             newList.add(e);
+            data = newList;
             size = 6;
             return true;
         }
-        ((List<E>) data).add(e);
+        ((ArrayList<E>) data).add(e);
         size++;
         return true;
     }
@@ -106,7 +108,7 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
         }
 
         if (size >= 2 && size <= 5) {
-            return ((E []) data)[index];
+            return ((E[]) data)[index];
         }
 
         return ((ArrayList<E>) data).get(index);
@@ -116,7 +118,7 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
     @Override
     public E remove(int index) throws IndexOutOfBoundsException {
         if (index >= size || size == 0) {
-                  throw new IndexOutOfBoundsException(); //remove is impossible
+            throw new IndexOutOfBoundsException(); //remove is impossible
         }
 
         if (size == 1) {
@@ -156,7 +158,7 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
         if (size == 5) {
             Object[] newArray = new Object[5];
             for (int i = 0; i < 5; i++) {
-                newArray[i] = ((Object[]) data)[5];
+                newArray[i] = ((ArrayList<E>) data).toArray()[i];
             }
 
             data = newArray;
@@ -198,5 +200,6 @@ public class SmartList<E> extends AbstractList<E> implements List<E> {
         size = 0;
         data = null;
     }
+
 }
 
