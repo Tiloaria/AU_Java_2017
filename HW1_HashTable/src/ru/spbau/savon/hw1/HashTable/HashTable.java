@@ -1,7 +1,5 @@
 package ru.spbau.savon.hw1.HashTable;
 
-import static java.lang.Math.pow;
-
 /**
  * Class can keep keys and it values, one key -> one value, it has public methods size, contains, get, put, remove, clear
  * @author Savon Yuliya
@@ -45,7 +43,7 @@ public class HashTable {
     public boolean contains(String key) {
         int place = hash(key);
         Element curentElement = table[place];
-        return !(curentElement == null || curentElement.contains(key) == null);
+        return (curentElement != null && curentElement.contains(key) != null);
     }
 
     /**
@@ -74,16 +72,17 @@ public class HashTable {
      */
     public String put(String key, String value) {
         int place = hash(key);
-        Element findElement = table[place];
-        if (findElement != null)
-            findElement = findElement.contains(key);
-        if (findElement == null) {
-            Element a = new Element(key, value, table[place]);   //when key is new
-            table[place] = a;
-            size++;
-            return null;
+        Element findElement = null;
+        if (table[place] != null) {
+            findElement = table[place].contains(key);
         }
-        return findElement.put(value);
+        if (findElement != null) { //key is already exists
+            return findElement.putValue(value);
+        }
+        Element a = new Element(key, value, table[place]);   //when key is new
+        table[place] = a;
+        size++;
+        return null;
     }
 
     /**
@@ -97,12 +96,14 @@ public class HashTable {
         }
         size--;
         int place = hash(key);
-        Element findElement = table[place].contains(key);
+        Element findElement = table[place].contains(key);//Element must exists
+        /*if (findElement == null)
+            System.out.println("We have some problems ser, it must exists!");*/
         if (table[place] == findElement) {
-            table[place] = findElement.next;
+            table[place] = findElement.getNext();
             return findElement.getValue();
         }
-        return findElement.remove(table[place].previous(key));
+        return table[place].previous(key).removeNext();
     }
 
     /**
@@ -114,6 +115,10 @@ public class HashTable {
         }
         size = 0;
     }
+
+    /*
+    Help class for element in HashTable
+     */
     private class Element {
         private String key;
         private String value;          //field for value of string
@@ -135,7 +140,7 @@ public class HashTable {
          * @return
          */
         private Element contains(String findKey) {
-            if (key == findKey) {
+            if (key.equals(findKey)) {
                 return this;
             }
             if (next == null) {
@@ -145,40 +150,54 @@ public class HashTable {
         }
 
         /**
-         * return previous Element with key of current Element
+         * return previous Element of Element with finding key
          * @param findKey
-         * @return
+         * @return return Element or null if there is't element with this key
          */
         private Element previous(String findKey) {
             if (next == null) {
                 return null;
             }
-            if (next.key == findKey)
+
+            if (key.equals(findKey)) { //it's first Element
+                return null;
+            }
+
+            if (next.key.equals(findKey))
                 return this;
             return  next.previous(findKey);
         }
 
+
         /**
-         * put new value in current Element
-         * @param newValue
-         * @return
+         * remove element after this if it exists
+         * @return value of removing element
          */
-        private String put(String newValue) {
-            String oldValue = value;
+        private String removeNext() {
+            String removingValue = null;
+            removingValue = next.value;
+            next = next.next;
+            return removingValue;
+        }
+
+
+        /**
+         * put new value in current element
+         * @param newValue new value
+         * @return old value
+         */
+        private String putValue(String newValue) {
+            String lastValue = value;
             value = newValue;
-            return oldValue;
+            return lastValue;
         }
 
         /**
-         * remove current Element
-         * @param previousElement
-         * @return
+         * return value of Element
+         * @return value of Element
          */
-        private String remove(Element previousElement) {
-            if (previousElement != null) {
-                previousElement.next = next;
-            }
-            return value;
+        private Element getNext() {
+            return next;
         }
     }
 }
