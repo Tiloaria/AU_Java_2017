@@ -16,15 +16,15 @@ public class Spiral {
     private int[][] matrix = new int[1][1];
 
     /**
-     * check new_matrix size and if it's ok create new matrix
+     * check newMatrix size and if it's ok create new matrix
      *
-     * @param new_size new size of matrix
-     * @param new_matrix new matrix
+     * @param newSize new size of matrix
+     * @param newMatrix new matrix
      */
-    public Spiral(int new_size, int[][] new_matrix) {
-        if ((new_size % 2 == 1) & (new_matrix.length == new_size) & (new_matrix[0].length == new_size)) {
-            matrix = new_matrix;
-            size = new_size;
+    public Spiral(int newSize, int[][] newMatrix) {
+        if ((newSize % 2 == 1) & (newMatrix.length == newSize) & (newMatrix[0].length == newSize)) {
+            matrix = newMatrix;
+            size = newSize;
         }
     }
 
