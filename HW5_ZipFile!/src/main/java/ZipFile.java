@@ -5,12 +5,16 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 import static java.nio.file.FileVisitResult.*;
 
+/**
+ * class which can find and unzip all file suitable for the regular expression
+ */
 public class ZipFile {
-    public static class DecompressFiles
-    extends SimpleFileVisitor<Path> {
-
-        /*
-        Get file and make new directory for correct files from files "*.zip"
+    public static class DecompressFiles extends SimpleFileVisitor<Path> {
+        /**
+         * Get file and make new directory for correct files from files "*.zip"
+         * @param file 
+         * @param attr
+         * @return
          */
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attr) {
