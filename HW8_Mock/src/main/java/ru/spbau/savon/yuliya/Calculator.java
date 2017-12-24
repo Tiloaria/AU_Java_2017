@@ -1,4 +1,5 @@
 package ru.spbau.savon.yuliya;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -11,21 +12,20 @@ public class Calculator {
     /**
      * Can convert expression in Array with Polish Notification
      * @param expression incoming expression
-     * @param signStack help stack for saving order of operations
+     * @param signStack  help stack for saving order of operations
      * @return Array with Strings - numbers and signs (in Polish Notification order)
      */
-    public static ArrayList<String> polishNote (@NotNull String expression, @NotNull MyStack<Character> signStack) {
+    public static ArrayList<String> polishNote(@NotNull String expression, @NotNull MyStack<Character> signStack) {
         StringBuilder curInt = new StringBuilder();
         boolean needToAddInt = true;
         ArrayList<String> ans = new ArrayList<>();
-        for(int i = 0; i < expression.length(); i++) {
+        for (int i = 0; i < expression.length(); i++) {
             Character curSymbol = expression.charAt(i);
             if (curSymbol >= '0' && curSymbol <= '9') {
                 needToAddInt = true;
                 curInt.append(curSymbol);
-            }
-            else {
-                if (curSymbol.equals('+')  || curSymbol.equals('-') || curSymbol.equals('*') || curSymbol.equals('/') || curSymbol.equals(')')) {
+            } else {
+                if (curSymbol.equals('+') || curSymbol.equals('-') || curSymbol.equals('*') || curSymbol.equals('/') || curSymbol.equals(')')) {
                     if (needToAddInt) {
                         ans.add(curInt.toString());
                         curInt = new StringBuilder();
@@ -43,8 +43,7 @@ public class Calculator {
                     if (!curSymbol.equals(')')) {
                         signStack.add(curSymbol);
                     }
-                }
-                else {
+                } else {
                     if (curSymbol.equals('(')) {
                         signStack.add(curSymbol);
                     }
@@ -67,7 +66,7 @@ public class Calculator {
      * @param operator2 second operator
      * @return true if priority of 1st operator is more or equal than 2nd, false otherwise
      */
-    private static boolean count (char operator1, char operator2) {
+    private static boolean count(char operator1, char operator2) {
         return (priority(operator1) >= priority(operator2));
     }
 
@@ -76,7 +75,7 @@ public class Calculator {
      * @param sign operator in type Char
      * @return number of operator priority
      */
-    private static int priority (Character sign) {
+    private static int priority(Character sign) {
         if (sign.equals(')') || sign.equals('(')) {
             return 0;
         }
@@ -91,17 +90,16 @@ public class Calculator {
 
     /**
      * Calcucate Polish Notification if it's correct
-     * @param str Polish Notification wrote in Array of Strings
+     * @param str       Polish Notification wrote in Array of Strings
      * @param intString Stack for intermediate values
      * @return result of expression
      */
-    public static double calculatePolishNote (ArrayList<String> str, @NotNull MyStack<Double> intString) {
+    public static double calculatePolishNote(ArrayList<String> str, @NotNull MyStack<Double> intString) {
         for (int i = 0; i < str.size(); i++) {
             String cur = str.get(i);
             if (cur.charAt(0) <= '9' && cur.charAt(0) >= '0') {
-                intString.add((double)Integer.parseInt(cur));
-            }
-            else {
+                intString.add((double) Integer.parseInt(cur));
+            } else {
                 double x2 = intString.top();
                 intString.pop();
                 double x1 = intString.top();
@@ -114,8 +112,8 @@ public class Calculator {
 
     /**
      * Count binary operation
-     * @param x1 first value
-     * @param x2 second value
+     * @param x1   first value
+     * @param x2   second value
      * @param sign operator
      * @return result of applied operator
      */
@@ -140,11 +138,11 @@ public class Calculator {
     /**
      * count result of expression with using Polish Notification
      * @param expression income expression
-     * @param signStack Stack for creating Array List with Polish Notification
-     * @param intStack Stack for intermediate values
+     * @param signStack  Stack for creating Array List with Polish Notification
+     * @param intStack   Stack for intermediate values
      * @return result of expression if it's correct
      */
-    public static double calculate (@NotNull String expression, @NotNull MyStack<Character> signStack, @NotNull MyStack<Double> intStack) {
+    public static double calculate(@NotNull String expression, @NotNull MyStack<Character> signStack, @NotNull MyStack<Double> intStack) {
         return calculatePolishNote(polishNote(expression, signStack), intStack);
     }
 }

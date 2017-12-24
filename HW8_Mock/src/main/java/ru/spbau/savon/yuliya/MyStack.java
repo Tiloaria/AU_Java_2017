@@ -2,7 +2,6 @@ package ru.spbau.savon.yuliya;
 
 /**
  * own Stack with public methods add, pop, top, size
- *
  * @param <E>
  */
 public class MyStack<E> {
@@ -14,7 +13,6 @@ public class MyStack<E> {
 
     /**
      * add an element and if it necessary resize stack
-     *
      * @param newElement element for add
      */
     public void add(E newElement) {
@@ -29,18 +27,16 @@ public class MyStack<E> {
      * remove last element from stack
      * @throws NullPointerException if can't pop an element(size <= 0)
      */
-    public void pop() throws NullPointerException{
+    public void pop() throws NullPointerException {
         if (size > 0) {
             size--;
-        }
-        else {
+        } else {
             throw new NullPointerException("Empty stack");
         }
     }
 
     /**
      * don't remove elements
-     *
      * @return value of last element
      */
     public E top() {
@@ -56,7 +52,6 @@ public class MyStack<E> {
 
     /**
      * Return information about presence in Stack at least 1 element.
-     *
      * @return false if Stack is empty, true otherwise.
      */
     public boolean notEmpty() {
