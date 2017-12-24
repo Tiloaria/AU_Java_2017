@@ -41,8 +41,6 @@ public class MyStackTest {
         assertEquals(stack.size(), 1);
         stack.pop();
         assertEquals(stack.size(), 0);
-        stack.pop();
-        assertEquals(stack.size(), 0);
     }
 
     /*
@@ -74,7 +72,7 @@ public class MyStackTest {
         assertEquals(stack.size(), 4);
         stack.top();
         assertEquals(stack.size(), 4);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
             stack.pop();
         assertEquals(stack.size(), 0);
     }
@@ -84,13 +82,26 @@ public class MyStackTest {
      */
     @org.junit.Test
     public void notEmpty() throws Exception {
-        assertEquals(stack.notEmpty(), true);
+        assertTrue(stack.notEmpty());
         stack.add(1);
-        assertEquals(stack.notEmpty(), true);
+        assertTrue(stack.notEmpty());
         stack.top();
-        assertEquals(stack.notEmpty(), true);
-        for (int i = 0; i < 5; i++)
+        assertTrue(stack.notEmpty());
+        for (int i = 0; i < 4; i++)
             stack.pop();
-        assertEquals(stack.notEmpty(), false);
+        assertFalse(stack.notEmpty());
+    }
+
+    @org.junit.Test
+    public void largeTest() throws Exception {
+        for (int i = 0; i < 2_000_000; i++) {
+            stack.add(i);
+        }
+        for (int i = 1_999_999; i >= 0; i--) {
+            Integer curI = i;
+            assertEquals(curI, stack.top());
+            stack.pop();
+            assertFalse(stack.top().equals(i));
+        }
     }
 }

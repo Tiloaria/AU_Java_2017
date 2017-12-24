@@ -6,11 +6,11 @@ package ru.spbau.savon.yuliya;
  * @param <E>
  */
 public class MyStack<E> {
-    int capacity = 1000; //start size of capacity
-    int size = 0; //start size
+    private int capacity = 1000; //start size of capacity
+    private int size = 0; //start size
 
     @SuppressWarnings("unchecked")
-    E[] a = (E[]) new Object[capacity];
+    private E[] a = (E[]) new Object[capacity];
 
     /**
      * add an element and if it necessary resize stack
@@ -27,18 +27,14 @@ public class MyStack<E> {
 
     /**
      * remove last element from stack
+     * @throws NullPointerException if can't pop an element(size <= 0)
      */
-    public void pop() {
-        try {
-            if (size > 0) {
-                size--;
-            }
-            else {
-                throw new NullPointerException("Empty stack");
-            }
+    public void pop() throws NullPointerException{
+        if (size > 0) {
+            size--;
         }
-        catch (NullPointerException e) {
-            System.out.println("Can't pop an element because " + e);
+        else {
+            throw new NullPointerException("Empty stack");
         }
     }
 
@@ -74,9 +70,7 @@ public class MyStack<E> {
     private void resize() {
         capacity *= 2;
         E[] newA = (E[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            newA[i] = a[i];
-        }
+        System.arraycopy(a, 0, newA, 0, size);
         a = newA;
     }
 }
