@@ -1,3 +1,5 @@
+package ru.spbau.savon;
+
 import org.junit.Before;
 import org.junit.Test;
 

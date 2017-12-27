@@ -1,3 +1,5 @@
+package ru.spbau.savon;
+
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
