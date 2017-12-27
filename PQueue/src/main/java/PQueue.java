@@ -13,14 +13,22 @@ public class PQueue<E extends Comparable<? super E>> {
     /**
      * initialization with naturalOrder comparator
      */
-    public void PQueue() {
+    public PQueue() {
         comparator = Comparator.naturalOrder();
     }
 
-    public void PQueue( Comparator<? super E> newComparator) {
+    /**
+     * initialization with newComparator
+     * @param newComparator comparator for E
+     */
+    public PQueue( Comparator<? super E> newComparator) {
         comparator =  newComparator;
     }
 
+    /**
+     * if it isn't zero element we should add it
+     * @param e
+     */
     public void add(E e) {
         if (points.size() == 0) {
             points.add(e); //to have zero element
@@ -42,7 +50,9 @@ public class PQueue<E extends Comparable<? super E>> {
         points.clear();
     }
 
-    public E poll() {
+    public E poll (){
+        if (size == 0)
+            return null;
         E ans = points.get(0);
         siftDown(1);
         return points.get(0);

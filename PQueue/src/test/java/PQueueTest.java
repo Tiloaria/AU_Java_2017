@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.Comparator;
+
 import static org.junit.Assert.*;
 
 public class PQueueTest {
@@ -61,9 +63,10 @@ public class PQueueTest {
         assertEquals(1, (int) pQueue.poll());
     }
 
-    /*@Test
+    @Test
     public void queueWithComparator() {
-        PQueue<Integer> pQueue = new PQueue<Integer>((a, b) -> (a - b));
+        Comparator<Integer> cmpr = (a, b) -> a - b;
+        PQueue<Integer> pQueue = new PQueue<Integer>(cmpr);
         pQueue.add(2);
         pQueue.add(3);
         pQueue.add(1);
@@ -74,7 +77,8 @@ public class PQueueTest {
 
     @Test
     public void checkFIFO() {
-        PQueue<Integer> pQueue = new PQueue<Integer>((a, b) -> (a - b));
+        Comparator<Integer> cmpr = (a, b) -> a - b;
+        PQueue<Integer> pQueue = new PQueue<Integer>(cmpr);
         Integer a = new Integer(2);
         Integer b = new Integer(2);
         Integer c = new Integer(2);
@@ -84,5 +88,5 @@ public class PQueueTest {
         assertTrue(a == pQueue.poll());
         assertTrue(b == pQueue.poll());
         assertTrue(c == pQueue.poll());
-    }*/
+    }
 }
