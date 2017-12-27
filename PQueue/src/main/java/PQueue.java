@@ -59,8 +59,8 @@ public class PQueue<E extends Comparable<? super E>> {
     }
 
     private void siftUp(int i) {
-        // while we are not top and father is biger
-        while (i > 1 && (comparator.compare(points.get(i / 2), points.get(i)) > 0)) {
+        // while we are not top and father is less
+        while (i > 1 && (comparator.compare(points.get(i / 2), points.get(i)) < 0)) {
             //swap(points.get(i), points.get(i / 2));
             E newE = points.get(i);
             points.set(i, points.get(i/2));
@@ -72,8 +72,8 @@ public class PQueue<E extends Comparable<? super E>> {
     private void siftDown(int i) {
         while (true) {
             int l = 2 * i;
-            // choose less of children
-            if (l + 1 <= size && comparator.compare(points.get(l + 1), points.get(l)) < 0) {
+            // choose bigerst of children
+            if (l + 1 <= size && comparator.compare(points.get(l + 1), points.get(l)) > 0) {
                 l++;
             }
             // if all children are less
